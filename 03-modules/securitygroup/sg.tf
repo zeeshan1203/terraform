@@ -19,10 +19,11 @@ resource "aws_security_group" "allow_ssh" {
   }
 
   tags = {
-    Name = "allow_ssh"
+    Name = "allow_ssh_public"
   }
 }
 
 output "sg_id" {
   value = aws_security_group.allow_ssh.id
 }
+
