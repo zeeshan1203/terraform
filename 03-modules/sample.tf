@@ -6,3 +6,7 @@ module "ec2" {
 module "securitygroup" {
   source = "./securitygroup"
 }
+
+provider "aws" {
+  region = "us-east-1"
+}
