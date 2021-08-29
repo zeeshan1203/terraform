@@ -56,3 +56,9 @@ variable "sample5" {
 output "sample5" {
   value = var.sample5["boolean"]
 }
+
+variable "sample6" {}
+
+output "sample6" {
+  value = var.sample6
+}
