@@ -12,10 +12,7 @@ resource "null_resource" "ansible-apply" {
     }
 
     inline = [
-      "sudo yum install ansible -y",
-      "sudo yum remove ansible -y",
-      "sudo rm -rf /usr/lib/python2.7/site-packages/ansible*",
-      "sudo pip install ansible",
+      "sudo labauto",
       "ansible-pull -i localhost, -U https://github.com/zeeshan1203/ansible.git roboshop-pull.yml -e COMPONENT=${element(var.COMPONENTS, count.index)}"
     ]
 
