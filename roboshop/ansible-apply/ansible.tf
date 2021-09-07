@@ -1,4 +1,4 @@
-resource "null_resource" "ansible-apply" {
+<<resource "null_resource" "ansible-apply" {
   triggers = {
     abc = timestamp()
   }
@@ -22,4 +22,4 @@ resource "null_resource" "ansible-apply" {
   }
 }
 
-variable "COMPONENTS" {}
+variable "COMPONENTS" {}>>
