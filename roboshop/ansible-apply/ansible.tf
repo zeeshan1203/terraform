@@ -12,6 +12,9 @@ resource "null_resource" "ansible-apply" {
     }
 
     inline = [
+      "sudo yum install python3-pip -y",
+      "sudo pip3 install pip --upgrade",
+      "sudo pip3 install ansible==4.1.0",
 #      "sudo yum install ansible -y",
 #      "sudo yum remove ansible -y",
 #      "sudo rm -rf /usr/lib/python2.7/site-packages/ansible*",
