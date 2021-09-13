@@ -25,6 +25,14 @@ resource "aws_ec2_tag" "spot" {
   value                  = element(var.COMPONENTS, count.index)
 }
 
+resource "aws_ec2_tag" "monitor" {
+  depends_on             = [time_sleep.wait]
+  count                  = length(var.COMPONENTS)
+  resource_id            = element(aws_spot_instance_request.cheap_worker.*.spot_instance_id, count.index)
+  key                    = "Monitor"
+  value                  = "yes"
+}
+
 resource "aws_route53_record" "dns" {
   depends_on             = [time_sleep.wait]
   count                  = length(var.COMPONENTS)
