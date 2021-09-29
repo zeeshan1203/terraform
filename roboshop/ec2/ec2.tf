@@ -12,13 +12,19 @@ resource "aws_spot_instance_request" "cheap_worker" {
 
 variable "COMPONENTS" {}
 
-resource "time_sleep" "wait" {
-  depends_on             = [aws_spot_instance_request.cheap_worker]
-  create_duration        = "120s"
+resource "null_resource" "wait" {
+  depends_on = [aws_spot_instance_request.cheap_worker]
+  triggers = {
+    abc = timestamp()
+  }
+
+  provisioner "local-exec" {
+    command = "sleep 60"
+  }
 }
 
 resource "aws_ec2_tag" "spot" {
-  depends_on             = [time_sleep.wait]
+  depends_on             = [null_resource.wait]
   count                  = length(var.COMPONENTS)
   resource_id            = element(aws_spot_instance_request.cheap_worker.*.spot_instance_id, count.index)
   key                    = "Name"
@@ -26,7 +32,7 @@ resource "aws_ec2_tag" "spot" {
 }
 
 resource "aws_ec2_tag" "monitor" {
-  depends_on             = [time_sleep.wait]
+  depends_on             = [null_resource.wait]
   count                  = length(var.COMPONENTS)
   resource_id            = element(aws_spot_instance_request.cheap_worker.*.spot_instance_id, count.index)
   key                    = "Monitor"
@@ -34,7 +40,7 @@ resource "aws_ec2_tag" "monitor" {
 }
 
 resource "aws_route53_record" "dns" {
-  depends_on             = [time_sleep.wait]
+  depends_on             = [null_resource.wait]
   count                  = length(var.COMPONENTS)
   zone_id                = "Z0455275BOCGUWER4BVO"  ##ur route 53 dns zone id
   name                   = "${element(var.COMPONENTS, count.index)}.roboshop.internal"
