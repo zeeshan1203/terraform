@@ -1,10 +1,7 @@
-//variable "COMPONENTS" {
-//  default = ["frontend", "mongodb", "catalogue", "redis", "user", "cart", "mysql", "shipping", "rabbitmq", "payment"]
-//}
-
 variable "COMPONENTS" {
-  default = ["cart", "frontend","shipping","payment"]
+  default = ["frontend", "mongodb", "catalogue", "redis", "user", "cart", "mysql", "shipping", "rabbitmq", "payment"]
 }
+
 
 
 
