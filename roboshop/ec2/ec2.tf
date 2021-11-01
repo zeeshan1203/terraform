@@ -4,6 +4,7 @@ resource "aws_spot_instance_request" "cheap_worker" {
   spot_price             = "0.0035"
   instance_type          = "t2.micro"
   vpc_security_group_ids = ["sg-0d01f7870914fc3d8"]
+  wait_for_fulfillment = true
 
   tags                   = {
     Name                 = element(var.COMPONENTS, count.index)
