@@ -1,9 +1,9 @@
 resource "aws_spot_instance_request" "cheap_worker" {
   count                  = length(var.COMPONENTS)
-  ami                    = "ami-074df373d6bafa625"
-  spot_price             = "0.0035"
+  ami                    = "ami-074df373d6bafa625"         ##devops-practice ami id
+  spot_price             = "0.0035"                        ##verify your spot price
   instance_type          = "t2.micro"
-  vpc_security_group_ids = ["sg-0d01f7870914fc3d8"]
+  vpc_security_group_ids = ["sg-0d01f7870914fc3d8"]        ##ur security group id
   wait_for_fulfillment = true
 
   tags                   = {
@@ -43,7 +43,7 @@ resource "aws_ec2_tag" "monitor" {
 resource "aws_route53_record" "dns" {
   depends_on             = [null_resource.wait]
   count                  = length(var.COMPONENTS)
-  zone_id                = "Z0455275BOCGUWER4BVO"                                        ##ur route 53 dns zone id
+  zone_id                = "Z0455275BOCGUWER4BVO"          ##ur route 53 dns zone id
   name                   = "${element(var.COMPONENTS, count.index)}.roboshop.internal"
   type                   = "A"
   ttl                    = "300"

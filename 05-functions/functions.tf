@@ -1,11 +1,11 @@
 variable "fruits" {
-  default = ["apple", "banana"]
+  default         = ["apple", "banana"]
 }
 
 output "number_of_fruits" {
-  value = length(var.fruits)
+  value           = length(var.fruits)
 }
 
 output "first-value" {
-  value = element(var.fruits, 0)
+  value           = element(var.fruits, 0)
 }
